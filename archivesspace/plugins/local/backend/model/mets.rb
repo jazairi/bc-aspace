@@ -1,3 +1,5 @@
+require 'time'
+
 class METSSerializer < ASpaceExport::Serializer 
   serializer_for :mets
 
@@ -10,7 +12,7 @@ class METSSerializer < ASpaceExport::Serializer
              'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
              'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
              'xsi:schemaLocation' => "http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/mets.xsd"){
-      xml.metsHdr(:CREATEDATE => Time.now) {
+      xml.metsHdr(:CREATEDATE => Time.now.iso8601) {
         xml.agent(:ROLE => data.header_agent_role, :TYPE => data.header_agent_type) {
           xml.name data.header_agent_name
           data.header_agent_notes.each do |note|
